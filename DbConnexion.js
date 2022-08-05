@@ -1,14 +1,12 @@
-var mysql = require('mysql');
-var conn = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:''
-});
 
-conn.connect(function(err){
-    if(err){
-        throw err;
-    }
-    console.log('Connected');
-});
+var databaseOptions = {
+    host     : 'remotemysql.com',
+    user     : 'R5SN5n87XJ',
+    password : 'VhGptzijZx',
+    database : 'R5SN5n87XJ'
+};
+module.exports = {databaseOptions: databaseOptions} ;
+
+//tnm_saas_database
+//nebdaoui.anass@gmail.com
 
