@@ -120,6 +120,7 @@ app.post("/api/editor/login",(req,res) =>{
             }else{
                 res.send({message:"Wrong informations"})
                 res.send("error")
+                console.log(result)
             }
         })
     })
