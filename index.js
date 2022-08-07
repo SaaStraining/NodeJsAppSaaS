@@ -40,9 +40,15 @@ app.post("/api/employe/add", async(req,res) =>{
     const nom = req.body.nom;
     const prenom = req.body.prenom;
     const cin = req.body.cin;
+    const tel = req.body.tel;
+    const mail = req.body.mail;
+    const addresse = req.body.addresse;
+    const sb = req.body.sb;
+    const cs = req.body.cs;
+    const sn = req.body.sn;
 
-    const insertEmp = "INSERT INTO `employe_test` (`id`, `statut`, `nom`, `prenom`, `cin`, `tel`, `mail`, `addresse`, `sb`, `cs`, `sn`) VALUES (NULL, ?, ?, ?, ?, '0708071759', 'nebdaoui.anass@gmail.com', '16 etc', '12.33113', '311.31', '311.13')";
-    conn.query(insertEmp,[statut, nom, prenom, cin] ,(err,result) =>{
+    const insertEmp = "INSERT INTO `employe_test` (`id`, `statut`, `nom`, `prenom`, `cin`, `tel`, `mail`, `addresse`, `sb`, `cs`, `sn`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    conn.query(insertEmp,[statut, nom, prenom, cin,tel,mail,addresse,sb,cs,sn] ,(err,result) =>{
         res.send("Hello Test port 3001")
         console.log(err)
         console.log(result)
