@@ -159,6 +159,24 @@ app.post("/api/visitor/login",(req,res) =>{
     })
 })
 
+app.post("/api/compte/add", async(req,res) =>{
+
+    const data =req.body;
+    const nom = req.body.nom;
+    const prenom = req.body.prenom;
+    const mail = req.body.mail;
+    const password = req.body.password
+    const role = req.body.role 
+    
+
+    const insertEmp = "INSERT INTO `compte` (`id`, `nom`, `prenom`, `email`, `password`, `role`) VALUES (NULL, ?, ?, ?, ?, ?)";
+    conn.query(insertEmp,[ nom, prenom,mail,password,role] ,(err,result) =>{
+        res.send("Hello Test port 3001")
+        console.log(err)
+        console.log(result)
+    });
+});
+
 app.listen(port,() =>{
     console.log("running on port 3001")
 });
