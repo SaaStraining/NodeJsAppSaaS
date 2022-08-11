@@ -197,6 +197,16 @@ app.post("/api/entreprise/add", async(req,res) =>{
     });
 });
 
+app.get("/api/entreprise/get",(req,res) =>{
+        
+    conn.query("SELECT * FROM `Entreprise`", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+
+});
+
 app.listen(port,() =>{
     console.log("running on port 3001")
 });
