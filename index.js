@@ -177,6 +177,26 @@ app.post("/api/compte/add", async(req,res) =>{
     });
 });
 
+app.post("/api/entreprise/add", async(req,res) =>{
+    const data =req.body;
+    const nom = req.body.nom;
+    const mail = req.body.mail;
+    const ice = req.body.ice;
+    const adresse = req.body.adresse
+    const cp = req.body.cp 
+    const ville = req.body.ville 
+    const fix = req.body.fix 
+    const portable = req.body.portable 
+    const site = req.body.site 
+
+    const insertEnts = "INSERT INTO `Entreprise` (`id`, `nom`, `mail`, `ice`, `adresse`, `cp`, `ville`, `fix`, `portable`, `site`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    conn.query(insertEnts,[ nom ,mail,ice,adresse,cp,ville,fix,portable,site] ,(err,result) =>{
+        res.send(result)
+        console.log(err)
+        console.log(result)
+    });
+});
+
 app.listen(port,() =>{
     console.log("running on port 3001")
 });
