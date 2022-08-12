@@ -26,6 +26,7 @@ conn.connect(function(err){
         throw err;
     }
     console.log('Connected');
+    console.log('Anass LBOGOSS');
 });
 
 app.post("/aa",async (req,res) =>{
@@ -97,7 +98,6 @@ app.post("/api/admin/login",async (req,res) =>{
                 console.log(result)
             }else{
                 res.send({message:"Wrong informations"})
-                res.send("error")
             }
         })
     })
@@ -125,8 +125,6 @@ app.post("/api/editor/login",(req,res) =>{
                 console.log(result)
             }else{
                 res.send({message:"Wrong informations"})
-                res.send("error")
-                console.log(result)
             }
         })
     })
@@ -153,7 +151,6 @@ app.post("/api/visitor/login",(req,res) =>{
                 console.log(result)
             }else{
                 res.send({message:"Wrong informations"})
-                res.send("error")
             }
         })
     })
@@ -206,6 +203,17 @@ app.get("/api/entreprise/get",(req,res) =>{
     });
 
 });
+
+app.delete("/api/entreprise/delete/(:id)", async(req,res) =>{
+    const id = { id: req.params.id }
+    const insertEnts = "DELETE FROM `Entreprise` WHERE id = ?";
+    conn.query(insertEnts,  req.params.id,(err,result) =>{
+        res.send(result)
+        console.log(err)
+        console.log(result)
+    });
+})
+
 
 app.listen(port,() =>{
     console.log("running on port 3001")
