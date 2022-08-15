@@ -168,7 +168,7 @@ app.post("/api/compte/add", async(req,res) =>{
 
     const insertEmp = "INSERT INTO `compte` (`id`, `nom`, `prenom`, `email`, `password`, `role`) VALUES (NULL, ?, ?, ?, ?, ?)";
     conn.query(insertEmp,[ nom, prenom,mail,password,role] ,(err,result) =>{
-        res.send("Hello Test port 3001")
+        res.send(result)
         console.log(err)
         console.log(result)
     });
@@ -206,8 +206,8 @@ app.get("/api/entreprise/get",(req,res) =>{
 
 app.delete("/api/entreprise/delete/(:id)", async(req,res) =>{
     const id = { id: req.params.id }
-    const insertEnts = "DELETE FROM `Entreprise` WHERE id = ?";
-    conn.query(insertEnts,  req.params.id,(err,result) =>{
+    const deleteEnts = "DELETE FROM `Entreprise` WHERE id = ?";
+    conn.query(deleteEnts,  req.params.id,(err,result) =>{
         res.send(result)
         console.log(err)
         console.log(result)
@@ -224,11 +224,64 @@ app.post("/api/devis/add", async(req,res) =>{
 
     const insertEmp = "INSERT INTO `Devis` (`id`, `libelle`, `num`, `date_devis`, `id_e`) VALUES (NULL, ?, ?, ?, ?)";
     conn.query(insertEmp,[ libelle, num,date,id_e] ,(err,result) =>{
-        res.send("Hello Test port 3001")
+        res.send(result)
         console.log(err)
         console.log(result)
     });
 });
+
+app.post("/api/produit/add", async(req,res) =>{
+
+    const data =req.body;
+    const libelle = req.body.libelle;
+    const nombre = req.body.nombre;
+    const unite = req.body.unite;
+    const prix_unite = req.body.prix_unite 
+    const prix_total_unite = req.body.prix_total_unite 
+    const marge = req.body.marge 
+    const prix_marge = req.body.prix_marge 
+    const prix_total_unite_marge = req.body.prix_total_unite_marge 
+    const id_devis = req.body.id_devis 
+
+    const insertEmp = "INSERT INTO `Produit` (`id`, libelle, nombre, unite, prix_unite, prix_total_unite, marge, prix_marge, prix_total_unite_marge, id_devis) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    conn.query(insertEmp,[ libelle, nombre,unite,prix_unite,prix_total_unite,marge,prix_marge,prix_total_unite_marge,id_devis] ,(err,result) =>{
+        res.send(result)
+        console.log(err)
+        console.log(result)
+    });
+});
+
+app.get("/api/produit/get",(req,res) =>{
+        
+    conn.query("SELECT * FROM `Produit`", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+
+});
+
+app.get("/api/produit/get/:id",(req,res) =>{
+
+    const id = req.params.id;
+
+    conn.query("SELECT * FROM `Produit` where id = ?", id, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+
+});
+
+app.delete("/api/produit/delete/(:id)", async(req,res) =>{
+    const id = { id: req.params.id }
+    const deleteProd = "DELETE FROM `Produit` WHERE id = ?";
+    conn.query(deleteProd,  req.params.id,(err,result) =>{
+        res.send(result)
+        console.log(err)
+        console.log(result)
+    });
+})
 
 app.listen(port,() =>{
     console.log("running on port 3001")
