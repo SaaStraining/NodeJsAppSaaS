@@ -214,6 +214,21 @@ app.delete("/api/entreprise/delete/(:id)", async(req,res) =>{
     });
 })
 
+app.post("/api/devis/add", async(req,res) =>{
+
+    const data =req.body;
+    const libelle = req.body.libelle;
+    const num = req.body.num;
+    const date = req.body.date_devis;
+    const id_e = req.body.id_e 
+
+    const insertEmp = "INSERT INTO `Devis` (`id`, `libelle`, `num`, `date_devis`, `id_e`) VALUES (NULL, ?, ?, ?, ?)";
+    conn.query(insertEmp,[ libelle, num,date,id_e] ,(err,result) =>{
+        res.send("Hello Test port 3001")
+        console.log(err)
+        console.log(result)
+    });
+});
 
 app.listen(port,() =>{
     console.log("running on port 3001")
