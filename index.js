@@ -214,7 +214,7 @@ app.delete("/api/entreprise/delete/(:id)", async(req,res) =>{
     });
 })
 
-app.post("/api/devis/add", async(req,res) =>{
+app.post("/api/devis/add", (req,res) =>{
 
     const data =req.body;
     const libelle = req.body.libelle;
@@ -224,7 +224,7 @@ app.post("/api/devis/add", async(req,res) =>{
 
     const insertEmp = "INSERT INTO `Devis` (`id`, `libelle`, `num`, `date_devis`, `id_e`) VALUES (NULL, ?, ?, ?, ?)";
     conn.query(insertEmp,[ libelle, num,date,id_e] ,(err,result) =>{
-        res.send(result)
+        res.send({id_devis:result.insertId})
         console.log(err)
         console.log(result)
     });
