@@ -283,6 +283,16 @@ app.delete("/api/produit/delete/(:id)", async(req,res) =>{
     });
 })
 
+app.delete("/api/service/delete/(:id)", async(req,res) =>{
+    const id = { id: req.params.id }
+    const deleteProd = "DELETE FROM `Service` WHERE id = ?";
+    conn.query(deleteProd,  req.params.id,(err,result) =>{
+        res.send(result)
+        console.log(err)
+        console.log(result)
+    });
+})
+
 app.listen(port,() =>{
     console.log("running on port 3001")
 });
