@@ -8,7 +8,7 @@ const app = express();
 const saltRounds = 10
 var mysql = require('mysql');
 var config = require('./DbConnexion.js');
-var conn = mysql.createConnection(config.databaseOptions);
+var conn = mysql.createPool(config.databaseOptions);
 
 const port = process.env.PORT || 3001
 
@@ -21,13 +21,30 @@ app.use(bodyParser.urlencoded({extended:true}))
 //     password:'',
 //     database:'npm_saas'
 // });
-conn.connect(function(err){
-    if(err){
-        throw err;
-    }
-    console.log('Connected');
-    console.log('Anass LBOGOSS');
-});
+
+// function handleDisconnect() {  
+//     conn.connect(function(err) {   
+//         console.log('Connected test later');
+//         if(err) {                                    
+//         console.log('error when connecting to db:', err);
+//         setTimeout(handleDisconnect, 2000); 
+//         }                                     
+//     });                                     
+                                      
+//     conn.on('error', function(err) {
+//         console.log('db error', err);
+//         if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+//             handleDisconnect();                        
+//         } else if(err.code === 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR'){
+//             handleDisconnect();                        
+//         } else {                                     
+//         throw err;                                 
+//         }
+        
+//     });
+// }
+
+// handleDisconnect();
 
 app.post("/aa",async (req,res) =>{
     const data = req.body.a;
@@ -65,6 +82,7 @@ app.get("/api/employe/get",(req,res) =>{
     });
 
 });
+
 
 app.get("/api/accounts/get",(req,res) =>{
         
@@ -282,6 +300,27 @@ app.delete("/api/produit/delete/(:id)", async(req,res) =>{
         console.log(result)
     });
 })
+
+app.post("/api/service/add", async(req,res) =>{
+
+    const data =req.body;
+    const libelle = req.body.libelle;
+    const nombre = req.body.nombre;
+    const unite = req.body.unite;
+    const prix_unite = req.body.prix_unite 
+    const prix_total_unite = req.body.prix_total_unite 
+    const marge = req.body.marge 
+    const prix_marge = req.body.prix_marge 
+    const prix_total_unite_marge = req.body.prix_total_unite_marge 
+    const id_devis = req.body.id_devis 
+
+    const insertEmp = "INSERT INTO `Service` (`id`, libelle, nombre, unite, prix_unite, prix_total_unite, marge, prix_marge, prix_total_unite_marge, id_devis) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    conn.query(insertEmp,[ libelle, nombre,unite,prix_unite,prix_total_unite,marge,prix_marge,prix_total_unite_marge,id_devis] ,(err,result) =>{
+        res.send(result)
+        console.log(err)
+        console.log(result)
+    });
+});
 
 app.delete("/api/service/delete/(:id)", async(req,res) =>{
     const id = { id: req.params.id }
